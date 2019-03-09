@@ -1,0 +1,80 @@
+// Òåñòîâûå äàííûå: 12/13 
+// Ââîä äàííûõ
+/*
+output
+Vvedite  chislitel
+12
+
+vvedite znamenatel
+13
+drob  ravna
+0,923076
+period raven
+923076
+*/
+
+#include  "stdafx.h"
+#include "iostream.h"
+
+// îáúÿâëåíèå ïåðåìåííûõ
+int m,n;
+int* ostatki;
+int*  period;
+unsigned int len;
+
+// ïðîâåðêà îñòàòêîâ
+int IsInOstatki(int ost,int  len)
+{
+	//len-1 ÷òîá íå ïðîâåðÿòü îñòàòîê,  ââäåíûé íà òåêóùåì øàãå
+	for(int i=0;i<len-1;i++)
+	{
+		if(ostatki[i]==ost) return i;
+	}
+	return  0;
+}
+// Ãëàâíàÿ ôóíêöèÿ âû÷èñëåíèÿ ïåðèîäà äðîáè
+int main(int argc, char* argv[])
+{
+	cout<<"Vvedite  chislitel drobi:\r\n";
+	cin>>m;
+	cout<<"\r\nvvedite znamenatel drobi:\r\n";
+	cin>>n;
+	ostatki=new int[n+1];
+	period=new int[n+1];
+
+	int d=m,q=n;
+	int  r,pos;
+	len=1;
+
+	do
+	{
+		r=d%q;
+		ostatki[len]=r;
+		d/=q;
+		period[len]=d;
+
+		d=10*r;
+		len++;
+	}
+	while((pos=IsInOstatki(r,len/*ñêîëüêî  îñòàòêîâ ïîìåùåíî â ìàññèâ
+		îñòàòêîâ*/))==0);
+
+	// âûâîä ðåçóëüòàòîâ
+	cout<<"drob= \r\n";
+	cout<<period[1]<<",";
+	for(r=2;r<len;r++)
+	{
+		cout<<period[r];
+	}
+	cout<<"\r\n  period=  ";
+	for(r=pos+1;r<len;r++)
+		cout<<period[r];
+
+	cout<<"\r\n";
+
+	// îñâîáîæäåíèå ðåñóðñîâ
+	delete[]  ostatki;
+	delete[] period;
+
+	return 0;
+}
